@@ -1,10 +1,10 @@
 import React from 'react';
-import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles((theme) => ({
-    noOptionsMessage: {
+    root: {
         padding: theme.spacing(1, 2)
     }
 }));
@@ -16,7 +16,7 @@ const NoOptionsMessage = React.memo((props) => {
     return (
         <Typography
             color='textSecondary'
-            className={classes.noOptionsMessage}
+            className={classes.root}
             {...props.innerProps}>
             {props.children}
         </Typography>

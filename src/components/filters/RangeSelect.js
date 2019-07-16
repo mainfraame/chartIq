@@ -1,8 +1,9 @@
 import React, { useMemo } from 'react';
+import PropTypes from 'prop-types';
 
 import Select from '../Select/Select';
 
-export default React.memo((props) => {
+const RangeSelect = React.memo((props) => {
 
     const options = useMemo(
         () => ([
@@ -27,14 +28,6 @@ export default React.memo((props) => {
                 value: '2y'
             },
             {
-                label: '5 Year',
-                value: '5y'
-            },
-            {
-                label: '10 Year',
-                value: '10y'
-            },
-            {
                 label: 'YTD',
                 value: 'ytd'
             },
@@ -48,9 +41,24 @@ export default React.memo((props) => {
 
     return (
         <Select
-            label='Range'
+            label={props.label}
             onChange={props.onChange}
             options={options}
+            placeholder={props.placeholder}
             value={props.value}/>
     );
 });
+
+RangeSelect.propTypes = {
+    label: PropTypes.string,
+    onChange: PropTypes.func.isRequired,
+    placeholder: PropTypes.string,
+    value: PropTypes.string
+};
+
+RangeSelect.defaultProps = {
+    label: 'Range',
+    placeholder: 'Select Range'
+};
+
+export default RangeSelect;

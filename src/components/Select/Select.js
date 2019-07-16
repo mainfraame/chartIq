@@ -71,8 +71,8 @@ const Select = React.memo((props) => {
             placeholder: props.placeholder
         }),
         [
-            props.placeholder,
-            props.label
+            props.label,
+            props.placeholder
         ]
     );
 
@@ -93,13 +93,13 @@ const Select = React.memo((props) => {
 });
 
 Select.propTypes = {
+    onChange: PropTypes.func,
     options: PropTypes.arrayOf(
         PropTypes.shape({
             label: PropTypes.string,
             value: PropTypes.any
         })
     ),
-    onChange: PropTypes.func,
     placeholder: PropTypes.string,
     value: PropTypes.any
 };

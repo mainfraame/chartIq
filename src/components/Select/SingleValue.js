@@ -1,10 +1,10 @@
 import React from 'react';
-import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles(() => ({
-    singleValue: {
+    root: {
         fontSize: 16
     }
 }));
@@ -15,7 +15,7 @@ const SingleValue = React.memo((props) => {
 
     return (
         <Typography
-            className={classes.singleValue}
+            className={classes.root}
             {...props.innerProps}>
             {props.children}
         </Typography>

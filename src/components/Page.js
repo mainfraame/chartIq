@@ -1,34 +1,34 @@
 import React, { useCallback, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
 
 import MACheckboxes from './filters/MACheckboxes';
 import RangeSelect from './filters/RangeSelect';
 import SymbolSelect from './filters/SymbolSelect';
+
 import Graph from './LineGraph';
 
 import useChartData from '../hooks/useChartData';
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        display: 'flex',
-        flexDirection: 'column',
-        margin: theme.spacing(1),
-        flexGrow: 1
-    },
     checkboxes: {
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'flex-end'
     },
     chart: {
-        flexGrow: 1
-    },
-    paper: {
         display: 'flex',
         flexDirection: 'column',
         flexGrow: 1
+    },
+    chartContainer: {
+        flexGrow: 1
+    },
+    root: {
+        display: 'flex',
+        flexDirection: 'column',
+        flexGrow: 1,
+        padding: theme.spacing(1)
     }
 }));
 
@@ -84,8 +84,7 @@ export default React.memo(() => {
     return (
         <div className={classes.root}>
             <Grid container
-                  spacing={1}
-                  component={Paper}>
+                  spacing={1}>
                 <Grid item xs={4}>
                     <SymbolSelect
                         onChange={onChangeSymbol}
@@ -104,14 +103,12 @@ export default React.memo(() => {
             </Grid>
             <Grid container
                   spacing={1}
-                  className={classes.chart}>
+                  className={classes.chartContainer}>
                 <Grid item xs={12}
-                      component={Paper}
-                      className={classes.paper}>
-                    <Graph
-                        technicals={filters.technicals}
-                        data={data}/>
-                </Grid>
+                      className={classes.chart}
+                      component={Graph}
+                      data={data}
+                      technicals={filters.technicals}/>
             </Grid>
         </div>
     );

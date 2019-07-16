@@ -16,7 +16,7 @@ const useStyles = makeStyles({
         body: {
             height: '100vh'
         },
-        'main#root': {
+        '#root': {
             display: 'flex',
             flexDirection: 'column',
             height: '100vh'

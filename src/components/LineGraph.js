@@ -6,7 +6,7 @@ import { std } from '../utils/math';
 import { ma } from '../utils/technicals';
 
 const useStyles = makeStyles(() => ({
-    canvas: {
+    root: {
         flexGrow: 1
     }
 }));
@@ -92,13 +92,12 @@ const LinGraph = React.memo((props) => {
 
             const minY = new Big(minVal).times(stepY).plus(structure.height);
 
-            const stepX = new Big(structure.width)
-                .minus(structure.basePadding * 4)
-                .div(values.length);
-            // .minus(new Big(structure.paddingLeft * 2).div(values.length));
-
             const stepXPadding = new Big(structure.paddingLeft).plus(structure.basePadding);
             const stepYPadding = new Big(structure.paddingTop);
+
+            const stepX = new Big(structure.width)
+                .minus(stepXPadding)
+                .div(values.length);
 
             return {
                 maxVal,
@@ -133,8 +132,11 @@ const LinGraph = React.memo((props) => {
                     ];
                 }
 
+                const isLastVal = i === values.length - 1;
+
                 const startX = Number(scale.stepX.times(i).plus(scale.stepXPadding));
-                const endX = Number(scale.stepX.times(i + 1).plus(scale.stepXPadding));
+
+                const endX = isLastVal ? startX : Number(scale.stepX.times(i + 1).plus(scale.stepXPadding));
 
                 const startY = Number(
                     new Big(value)
@@ -143,14 +145,12 @@ const LinGraph = React.memo((props) => {
                         .plus(scale.minY)
                 );
 
-                const endY = i === values.length - 1 ?
-                    startY :
-                    Number(
-                        new Big(values[i + 1])
-                            .times(scale.stepY)
-                            .times(-1)
-                            .plus(scale.minY)
-                    );
+                const endY = isLastVal ? startY : Number(
+                    new Big(values[i + 1])
+                        .times(scale.stepY)
+                        .times(-1)
+                        .plus(scale.minY)
+                );
 
                 return [
                     ...acc,
@@ -198,24 +198,6 @@ const LinGraph = React.memo((props) => {
             xAxisLabels
         ]
     );
-
-    // const xLabels = useMemo(
-    //     () => (
-    //         new Array(xAxisLabels.length ? props.labelCount : 0)
-    //             .fill(undefined)
-    //             .map((n, i) => ({
-    //                 text: (scale.minVal + ((scale.maxVal - scale.minVal) * ((1 / props.labelCount) * i))).toFixed(2),
-    //                 x: structure.width + structure.paddingLeft,
-    //                 y: (((structure.height / props.labelCount) * i) * -1) + structure.height
-    //             }))
-    //     ),
-    //     [
-    //         props.labelCount,
-    //         scale,
-    //         structure,
-    //         values
-    //     ]
-    // );
 
     const yLabels = useMemo(
         () => (
@@ -268,30 +250,29 @@ const LinGraph = React.memo((props) => {
         ]
     );
 
-    // draw borders
     useEffect(
         () => {
             if (ctx) {
 
                 ctx.clearRect(0, 0, dimensions.width, dimensions.height);
 
-                ctx.strokeStyle = theme.palette.chart.label;
+                ctx.strokeStyle = theme.palette.chart.label.color;
 
-                // draw Y line
+                // draw Y border
                 drawLine(structure.width, structure.paddingTop, structure.width, structure.height);
-                // draw X line
+                // draw X border
                 drawLine(structure.paddingLeft, structure.height, structure.width, structure.height);
 
-                ctx.font = `400 ${props.fontSize}px Roboto`;
+                ctx.font = `400 ${theme.palette.chart.label.fontSize}px Roboto`;
 
-                const labelOffsetY = props.fontSize / 4;
+                const labelOffsetY = theme.palette.chart.label.fontSize / 4;
 
                 yLabels.forEach((label) => {
 
                     ctx.fillText(label.text, label.x, label.y);
 
                     ctx.lineWidth = 0.5;
-                    ctx.strokeStyle = theme.palette.chart.label;
+                    ctx.strokeStyle = theme.palette.chart.label.color;
 
                     // draw y axis line
                     drawLine(
@@ -346,23 +327,21 @@ const LinGraph = React.memo((props) => {
             technicalSeries,
             xLabels,
             yLabels,
-            structure,
-            props.fontSize
+            structure
         ]
     );
 
     return (
         <canvas
             ref={$canvas}
-            className={classes.canvas}
+            className={classes.root}
             height={dimensions.height}
             width={dimensions.width}/>
     );
 });
 
 LinGraph.defaultProps = {
-    fontSize: 12,
-    labelCount: 20
+    labelCount: 19
 };
 
 export default LinGraph;

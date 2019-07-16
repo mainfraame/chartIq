@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
-    valueContainer: {
+    root: {
         display: 'flex',
         flexWrap: 'wrap',
         flex: 1,
@@ -18,7 +18,7 @@ const ValueContainer = React.memo((props) => {
     const classes = useStyles();
 
     return (
-        <div className={classes.valueContainer}>
+        <div className={classes.root}>
             {props.children}
         </div>
     );

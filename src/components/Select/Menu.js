@@ -1,10 +1,10 @@
 import React from 'react';
-import Paper from '@material-ui/core/Paper';
 import PropTypes from 'prop-types';
+import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles(() => ({
-    menu: {
+    root: {
         position: 'absolute',
         zIndex: 1,
         left: 0,
@@ -19,7 +19,7 @@ const Menu = React.memo((props) => {
     return (
         <Paper
             square
-            className={classes.menu}
+            className={classes.root}
             {...props.innerProps}>
             {props.children}
         </Paper>

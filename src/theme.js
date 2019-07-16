@@ -7,8 +7,11 @@ export const theme = responsiveFontSizes(
         },
         palette: {
             chart: {
+                label: {
+                    color: '#131d24',
+                    fontSize: 12
+                },
                 dataPoint: '#152027',
-                label: '#131d24',
                 technicals: [
                     '#0ccd87',
                     '#039bff',

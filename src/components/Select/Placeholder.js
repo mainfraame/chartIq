@@ -1,10 +1,10 @@
 import React from 'react';
-import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles((theme) => ({
-    placeholder: {
+    root: {
         position: 'absolute',
         left: theme.spacing(1),
         bottom: 6
@@ -18,7 +18,7 @@ const Placeholder = React.memo((props) => {
     return (
         <Typography
             color='textSecondary'
-            className={classes.placeholder}
+            className={classes.root}
             {...props.innerProps}>
             {props.children}
         </Typography>

@@ -19,15 +19,15 @@ const MACheckboxes = React.memo((props) => {
     const classes = useStyles();
 
     const checkboxes = useMemo(
-        () => {
-            return Object.keys(props.values).map((key, i) => ({
+        () => (
+            Object.keys(props.values).map((key, i) => ({
                 checked: props.values[key],
                 classes: {
                     checked: classes[`technical${i}`]
                 },
                 value: key
-            }));
-        },
+            }))
+        ),
         [
             classes,
             props.values
@@ -53,13 +53,10 @@ const MACheckboxes = React.memo((props) => {
 });
 
 MACheckboxes.propTypes = {
-    onChange: PropTypes.func,
+    onChange: PropTypes.func.isRequired,
     values: PropTypes.shape({
-        5: PropTypes.bool,
-        10: PropTypes.bool,
-        20: PropTypes.bool,
-        40: PropTypes.bool
-    })
+        [PropTypes.number]: PropTypes.bool
+    }).isRequired
 };
 
 export default MACheckboxes;

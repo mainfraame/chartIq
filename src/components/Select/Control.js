@@ -1,15 +1,15 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
-import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core';
+import TextField from '@material-ui/core/TextField';
 
 import InputComponent from './InputComponent';
 
 const useStyles = makeStyles(() => ({
-    input: {
+    root: {
         display: 'flex',
-        padding: 0,
-        height: 'auto'
+        height: 'auto',
+        padding: 0
     }
 }));
 
@@ -21,7 +21,7 @@ const Control = React.memo((props) => {
         () => ({
             inputComponent: InputComponent,
             inputProps: {
-                className: classes.input,
+                className: classes.root,
                 ref: props.innerRef,
                 children: props.children,
                 ...props.innerProps
@@ -44,7 +44,10 @@ const Control = React.memo((props) => {
 Control.propTypes = {
     children: PropTypes.node,
     innerProps: PropTypes.object,
-    innerRef: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+    innerRef: PropTypes.oneOfType([
+        PropTypes.func,
+        PropTypes.object
+    ]),
     selectProps: PropTypes.object.isRequired
 };
 

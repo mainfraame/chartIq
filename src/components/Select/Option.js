@@ -1,16 +1,16 @@
 import React, { useMemo } from 'react';
-import MenuItem from '@material-ui/core/MenuItem';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core';
+import MenuItem from '@material-ui/core/MenuItem';
 
 const useStyles = makeStyles((theme) => ({
+    root: {
+        maxHeight: 30,
+        minHeight: 'unset'
+    },
     menuItemGutters: {
         paddingLeft: theme.spacing(1),
         paddingRight: theme.spacing(1)
-    },
-    menuItem: {
-        maxHeight: 30,
-        minHeight: 'unset'
     }
 }));
 
@@ -40,7 +40,7 @@ const Option = React.memo((props) => {
             selected={props.isFocused}
             component='div'
             classes={css}
-            className={classes.menuItem}
+            className={classes.root}
             style={style}
             {...props.innerProps}>
             {props.children}

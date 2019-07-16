@@ -1,32 +1,34 @@
-export const ma = (data, size) => {
+import Big from 'big.js';
 
-    if (size > data.length) {
-        return Array(data.length);
+export const ma = (points, size) => {
+
+    if (size > points.length) {
+        return Array(points.length);
     }
 
     let i = 0;
-    let sum = 0;
+    let sum = new Big(0);
     let total = 0;
 
     const averages = [];
 
-    for (; i < data.length && total < size - 1; i++) {
-        if (typeof data[i] === 'number') {
-            sum += data[i];
+    for (; i < points.length && total < size - 1; i++) {
+        if (typeof points[i] === 'number') {
+            sum = sum.plus(points[i]);
             total++;
         }
     }
 
-    for (; i < data.length; i++) {
-        if (typeof data[i] === 'number') {
-            sum += data[i];
+    for (; i < points.length; i++) {
+        if (typeof points[i] === 'number') {
+            sum = sum.plus(points[i]);
         }
 
-        if (typeof data[i - size] === 'number') {
-            sum -= data[i - size];
+        if (typeof points[i - size] === 'number') {
+            sum = sum.minus(points[i - size]);
         }
 
-        averages[i] = sum / size;
+        averages[i] = Number(sum.div(size));
     }
 
     return averages;
