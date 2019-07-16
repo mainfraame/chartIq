@@ -1,12 +1,15 @@
-# chartIq
+# ChartIQ
 
 
-### Start Project
+#### Start Project
 ```
 npm i && npm start
 ```
 
-### Host:Port
+#### Host:Port
 ```
 localhost:8080
 ```
+
+#### Screenshot
+![alt text](./screenshot.png)
