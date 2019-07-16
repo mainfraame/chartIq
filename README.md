@@ -1,12 +1,12 @@
 # chartIq
 
 
-## Start Project
+### Start Project
 ```
 npm i && npm start
 ```
 
-## Host:Port
+### Host:Port
 ```
 localhost:8080
 ```
