@@ -52,8 +52,8 @@ const LinGraph = React.memo((props) => {
 
             const paddingTop = basePadding;
             const paddingLeft = basePadding;
-            const paddingBottom = basePadding * 4;
-            const paddingRight = basePadding * 6;
+            const paddingBottom = basePadding * 8;
+            const paddingRight = basePadding * 8;
 
             return {
                 basePadding,
@@ -172,23 +172,19 @@ const LinGraph = React.memo((props) => {
 
     const xLabels = useMemo(
         () => {
+            const indexes = [];
 
-            const allLabels = values.length ?
-                xAxisLabels.map((text, i) => ({
-                    text,
-                    x: Number(scale.stepX.times(i).plus(scale.stepXPadding)),
-                    y: structure.height + (structure.paddingTop + structure.basePadding)
-                })) : [];
+            const delta = Math.floor(xAxisLabels.length / props.labelCount);
 
-            const labels = [];
-
-            const delta = Math.floor(allLabels.length / props.labelCount);
-
-            for (let i = 0; i < allLabels.length; i = i + delta) {
-                labels.push(allLabels[i]);
+            for (let i = 0; i < xAxisLabels.length; i = i + delta) {
+                indexes.push(i);
             }
 
-            return labels;
+            return indexes.map((i) => ({
+                text: xAxisLabels[i],
+                x: Number(scale.stepX.times(i).plus(scale.stepXPadding)),
+                y: structure.height + (structure.paddingTop + structure.basePadding)
+            }));
         },
         [
             props.labelCount,
@@ -285,11 +281,11 @@ const LinGraph = React.memo((props) => {
 
                 // draw x labels
                 xLabels.forEach((label) => {
-                    ctx.fillText(
-                        label.text,
-                        label.x,
-                        label.y
-                    );
+                    ctx.save();
+                    ctx.translate(label.x, label.y);
+                    ctx.rotate(Math.PI / 3);
+                    ctx.fillText(label.text, 0, 0);
+                    ctx.restore();
                 });
 
                 ctx.strokeStyle = theme.palette.chart.dataPoint;
@@ -341,7 +337,7 @@ const LinGraph = React.memo((props) => {
 });
 
 LinGraph.defaultProps = {
-    labelCount: 19
+    labelCount: 18
 };
 
 export default LinGraph;
